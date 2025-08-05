@@ -6,9 +6,9 @@ backend plan
      - projects.json
      - testimonials.json
      - inquiries.json
-  - form-handler.md (write "Formspree used for contact form")
-  - ER_diagram.png (upload any ER diagram image)
-  - UML_diagram.png (upload any UML class diagram)
-  - ai_chatbot_plan.md (write some points like "Using ChatGPT for inquiry automation")
+  - form-handler.md 
+  - ER_diagram.png 
+  - UML_diagram.png 
+  - ai_chatbot_plan.md 
 
 
