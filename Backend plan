@@ -1,0 +1,17 @@
+backend plan
+
+
+/backend/
+├── data/
+│   ├── projects.json
+│   ├── testimonials.json
+│   └── inquiries.json
+├── form-handler/
+│   └── formspree-setup.md
+├── diagrams/
+│   └── er-diagram.png
+│   └── uml-class-diagram.png
+└── ai-component/
+    └── ai-chatbot-plan.md
+
+
