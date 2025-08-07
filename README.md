@@ -3,7 +3,7 @@
 
 ## Contribution by: Harsh
 
-As the Frontend Developer, I was responsible for designing and implementing the visual and interactive elements of the Fortune Homes Victoria website. My key contributions are outlined below:
+ My key contributions are outlined below:
 
 ### Page Development
 Developed all five main pages using semantic HTML5:
