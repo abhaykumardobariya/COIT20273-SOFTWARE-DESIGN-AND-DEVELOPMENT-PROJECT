@@ -1,0 +1,19 @@
+fortune-homes-vic/
+├── index.html              # Home Page
+├── services.html
+├── projects.html
+├── testimonials.html
+├── contact.html
+├── /css/
+│   └── styles.css          # Custom styles
+├── /js/
+│   └── main.js             # Optional interactivity (navbar, form validation)
+├── /images/
+│   └── project1.jpg
+│   └── ...                 # Optimized images
+├── /lightbox/
+│   ├── lightbox.css
+│   └── lightbox.js
+├── /assets/
+│   └── fonts/              # (Optional) custom fonts
+└── README.md
