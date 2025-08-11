@@ -63,11 +63,11 @@ Maintained clean and readable code, with comments and consistent formatting.
 
 
 
-# Backend Development – Fortune Homes Victoria
+## Project Manager & Client Communication – Fortune Homes Victoria
 
 ## Contribution by: Abhaykumar
 
-1. Project Manager & Client Communication — Abhay
+## 1. Project Manager & Client Communication — Abhay
 Responsibilities:
 
 
@@ -79,7 +79,7 @@ Responsibilities:
 •	Oversee presentation preparation.
 
 
-Research topics:
+## Research topics:
 
 
 •	How to conduct requirements gathering and client communication best practices.
