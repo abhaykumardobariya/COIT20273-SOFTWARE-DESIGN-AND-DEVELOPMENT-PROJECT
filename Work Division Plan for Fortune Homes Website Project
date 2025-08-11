@@ -1,0 +1,47 @@
+Work Division Plan for Fortune Homes Website Project
+ 
+1. Project Manager & Client Communication — Abhay
+Responsibilities:
+•	Coordinate team meetings and timelines.
+•	Communicate with the client (real or fictional).
+•	Manage requirements gathering and document updates.
+•	Prepare progress reports and final project report.
+•	Oversee presentation preparation.
+Research topics:
+•	How to conduct requirements gathering and client communication best practices.
+•	Project management tools (Trello, Jira, or GitHub Projects).
+ 
+2. UI/UX Designer — Parthesh
+Responsibilities:
+•	Create wireframes and mockups for key pages (Homepage, Search Results, Property Details).
+•	Design the visual style guide (colors, fonts, buttons).
+•	Ensure responsiveness and accessibility standards.
+•	Assist with front-end HTML/CSS integration if needed.
+Research topics:
+•	Best UI/UX practices for real estate websites.
+•	Tools like Figma, Adobe XD, or Sketch.
+•	Responsive web design techniques.
+ 
+3. Front-End Developer — Harsh
+Responsibilities:
+•	Build static pages from wireframes using HTML, CSS, and JavaScript.
+•	Implement search filters and dynamic property listings (can be mocked or real).
+•	Integrate Google Maps API for property locations.
+•	Ensure site is responsive and performs well on all devices.
+Research topics:
+•	Front-end frameworks/libraries (React, Vue.js, or just vanilla JS).
+•	Google Maps API integration.
+•	Responsive web development and testing tools.
+ 
+4. Back-End Developer & Tester — Rahul
+Responsibilities:
+•	Set up backend (database and server). Can use PHP/MySQL, Node.js, or any CMS.
+•	Develop property management system (add/edit/delete listings).
+•	Implement inquiry form handling and admin panel basics.
+•	Perform testing (unit, integration, and user acceptance).
+•	Prepare user manual and testing documentation.
+Research topics:
+•	Backend frameworks and database design for real estate listings.
+•	Form handling and email notifications.
+•	Testing methodologies and tools.
+
