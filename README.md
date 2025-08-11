@@ -69,12 +69,19 @@ Maintained clean and readable code, with comments and consistent formatting.
 
 1. Project Manager & Client Communication — Abhay
 Responsibilities:
+
+
 •	Coordinate team meetings and timelines.
+
 •	Communicate with the client (real or fictional).
 •	Manage requirements gathering and document updates.
 •	Prepare progress reports and final project report.
 •	Oversee presentation preparation.
+
+
 Research topics:
+
+
 •	How to conduct requirements gathering and client communication best practices.
 •	Project management tools (Trello, Jira, or GitHub Projects).
 
