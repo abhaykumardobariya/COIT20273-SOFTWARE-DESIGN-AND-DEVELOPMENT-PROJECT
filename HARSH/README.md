@@ -56,38 +56,4 @@ As the **Frontend Developer**, my key contributions include:
 
 ---
 
-## 📂 Project Structure
-
-fortune-homes-victoria/
-│
-├── index.html                # Home page
-├── services.html              # Services page
-├── projects.html              # Project Gallery page
-├── testimonials.html          # Client Testimonials page
-├── contact.html               # Contact form & map
-│
-├── assets/
-│   ├── css/
-│   │   ├── bootstrap.min.css  # Bootstrap CSS
-│   │   ├── lightbox.min.css   # Lightbox CSS
-│   │   └── style.css          # Your custom CSS
-│   │
-│   ├── js/
-│   │   ├── bootstrap.bundle.min.js # Bootstrap JS
-│   │   ├── lightbox.min.js         # Lightbox JS
-│   │   └── main.js                 # Your custom JS
-│   │
-│   ├── images/
-│   │   ├── hero.jpg           # Hero banner image
-│   │   ├── gallery1.jpg       # Gallery images
-│   │   ├── gallery2.jpg
-│   │   ├── logo.png           # Company logo
-│   │   └── favicon.ico        # Favicon
-│   │
-│   └── fonts/                 # (Optional) Custom fonts if used
-│
-├── .gitignore                 # Ignore OS/system files & temp files
-├── README.md                  # GitHub project description
-└── LICENSE                    # (Optional) Project license
-
 
