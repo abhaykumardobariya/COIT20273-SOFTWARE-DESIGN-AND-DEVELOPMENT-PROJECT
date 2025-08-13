@@ -58,4 +58,20 @@ As the **Frontend Developer**, my key contributions include:
 
 ## 📂 Project Structure
 
+├── index.html
+├── services.html
+├── projects.html
+├── testimonials.html
+├── contact.html
+├── assets/
+│ ├── css/
+│ │ └── styles.css
+│ ├── js/
+│ │ └── script.js
+│ ├── images/
+│ └── vendor/
+│ ├── bootstrap/
+│ └── lightbox/
+└── README.md
+
 
