@@ -25,3 +25,21 @@ Always test locally before uploading changes.
 Keep backups of the database.
 Check for security issues every time I add new features.
 Share testing results with the team so we can fix problems early.
+
+Link
+Learn how the server works, how it talks to the database, and how it sends information to the website. This is the foundation of my role
+https://developer.mozilla.org/en-US/docs/Learn/Server-side
+Learn how to create tables for properties, inquiries, and testimonials, and link them together. This keeps the site organised and easy to update.
+https://www.w3schools.com/sql/
+Learn how to process inquiry forms safely and send emails to the business when someone makes an inquiry.
+https://www.php.net/manual/en/tutorial.forms.php
+Learn different testing types — unit (small parts), integration (how parts work together), and user testing. Testing is key for finding issues early.
+https://www.guru99.com/software-testing.html
+Learn to use tools like Postman for API testing and Selenium for automation. This makes testing faster and more accurate.
+https://learning.postman.com/docs/
+Learn how to use Git to track code changes and work safely without losing progress.
+https://www.atlassian.com/git
+Learn how to make the site faster and ready for more users in the future.
+https://web.dev/fast/
+Learn how to write a clear guide for using the admin panel and APIs so others can maintain the site in the future.
+https://www.freecodecamp.org/news/technical-writing-for-developers/
