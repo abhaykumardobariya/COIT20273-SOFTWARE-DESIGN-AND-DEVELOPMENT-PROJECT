@@ -1,4 +1,4 @@
-Step 1: Strengthen Core Fundamentals (Week 1–2)
+### Step 1: Strengthen Core Fundamentals (Week 1–2)
 
 Objective: Build strong foundational understanding of HTML, CSS, and JavaScript (ES6+)
 
@@ -18,7 +18,7 @@ Live Server
 
 JSFiddle or CodePen for quick tests
 
-✅ Step 2: Build & Refine Projects (Week 3–4)
+### ✅ Step 2: Build & Refine Projects (Week 3–4)
 
 Objective: Apply your skills in real projects and push the complexity
 
@@ -42,7 +42,7 @@ Reusability of components
 
 Form validation & basic interactivity
 
-✅ Step 3: Learn a Framework (React.js) (Week 5–7)
+###✅ Step 3: Learn a Framework (React.js) (Week 5–7)
 
 Objective: Start working with modern UI libraries and component-based design
 
@@ -68,7 +68,7 @@ React Docs
 
 Beta React Docs (Learn React)
 
-✅ Step 4: Improve UI/UX Skills (Week 8)
+###✅ Step 4: Improve UI/UX Skills (Week 8)
 
 Objective: Build visually appealing and accessible UIs
 
@@ -94,7 +94,7 @@ Test keyboard navigation
 
 Use Lighthouse to test accessibility
 
-✅ Step 5: Deploy & Share Projects (Week 9)
+###✅ Step 5: Deploy & Share Projects (Week 9)
 
 Objective: Make your work public and learn deployment process
 
@@ -114,7 +114,7 @@ Projects showcase
 
 Contact form using Formspree
 
-✅ Step 6: Learn Git & Version Control Best Practices (Ongoing)
+###✅ Step 6: Learn Git & Version Control Best Practices (Ongoing)
 
 Objective: Collaborate like a pro and track your progress
 
@@ -126,7 +126,7 @@ Write meaningful commit messages
 
 Learn pull requests, rebasing, and conflict resolution
 
-✅ Step 7: Explore Backend Basics (Optional) (Week 10–12)
+###✅ Step 7: Explore Backend Basics (Optional) (Week 10–12)
 
 Objective: Understand how frontend connects with backend
 
@@ -140,7 +140,7 @@ Connect to Firebase or MongoDB Atlas
 
 Build a Fullstack Contact Form (store data, display it)
 
-✅ Step 8: Keep Practicing & Staying Updated (Ongoing)
+###✅ Step 8: Keep Practicing & Staying Updated (Ongoing)
 
 Objective: Stay sharp and industry-relevant
 
