@@ -1,1 +1,356 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Listings — Fortune Living Victoria</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-50 min-h-screen text-gray-800">
+
+  <header class="bg-white shadow">
+    <div class="max-w-6xl mx-auto px-4 py-5 flex items-center gap-6">
+      <h1 class="text-2xl font-bold">Fortune Living Victoria</h1>
+
+      <form id="nlpSearchForm" class="flex-1">
+        <div class="flex items-center gap-2">
+          <input id="nlpSearchInput" type="search" placeholder="Search (e.g. '3-bed under $700k in Tarneit with parking')" 
+                 class="w-full border rounded-full px-4 py-2 focus:outline-none focus:ring" />
+          <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded-full">Search</button>
+        </div>
+      </form>
+
+      <div class="flex items-center gap-3">
+        <button id="toggleSignin" class="px-3 py-1 border rounded">Sign in (simulate)</button>
+        <a href="index.html" class="text-sm text-blue-600">Home</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="max-w-6xl mx-auto px-4 py-8 lg:flex gap-8">
+    <!-- Filters -->
+    <aside class="w-full lg:w-80 bg-white p-5 rounded-lg shadow-sm">
+      <h2 class="font-semibold mb-3">Filters</h2>
+
+      <div class="space-y-3">
+        <input id="fSuburb" type="text" placeholder="Suburb (e.g. Tarneit)" class="w-full border rounded px-3 py-2" />
+
+        <div class="flex gap-2">
+          <input id="fMinPrice" type="number" placeholder="Min price" class="w-1/2 border rounded px-3 py-2" />
+          <input id="fMaxPrice" type="number" placeholder="Max price" class="w-1/2 border rounded px-3 py-2" />
+        </div>
+
+        <div class="flex gap-2">
+          <select id="fBeds" class="flex-1 border rounded px-3 py-2">
+            <option value="">Any beds</option>
+            <option value="1">1+</option>
+            <option value="2">2+</option>
+            <option value="3">3+</option>
+            <option value="4">4+</option>
+          </select>
+          <select id="fBaths" class="flex-1 border rounded px-3 py-2">
+            <option value="">Any baths</option>
+            <option value="1">1+</option>
+            <option value="2">2+</option>
+            <option value="3">3+</option>
+          </select>
+        </div>
+
+        <select id="fType" class="w-full border rounded px-3 py-2">
+          <option value="">Any type</option>
+          <option value="House">House</option>
+          <option value="Apartment">Apartment</option>
+          <option value="Unit">Unit</option>
+        </select>
+
+        <select id="fParking" class="w-full border rounded px-3 py-2">
+          <option value="">Any parking</option>
+          <option value="0">No parking</option>
+          <option value="1">1+</option>
+          <option value="2">2+</option>
+        </select>
+
+        <div>
+          <label class="block text-sm mb-1">Amenities</label>
+          <div class="flex flex-wrap gap-2">
+            <label class="text-sm"><input type="checkbox" value="parking" class="amenity"> Parking</label>
+            <label class="text-sm"><input type="checkbox" value="pool" class="amenity"> Pool</label>
+            <label class="text-sm"><input type="checkbox" value="aircon" class="amenity"> Aircon</label>
+            <label class="text-sm"><input type="checkbox" value="garden" class="amenity"> Garden</label>
+          </div>
+        </div>
+
+        <div class="flex gap-2 mt-3">
+          <button id="applyFilters" class="flex-1 bg-blue-600 text-white px-4 py-2 rounded">Apply</button>
+          <button id="resetFilters" class="flex-1 border rounded px-4 py-2">Reset</button>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Results -->
+    <section class="flex-1">
+      <div class="bg-white p-4 rounded-lg shadow-sm mb-4 flex flex-col md:flex-row md:items-center md:justify-between gap-3">
+        <div class="text-sm">
+          <span id="resultCount">0</span> properties found
+        </div>
+
+        <div class="flex items-center gap-3">
+          <label class="text-sm">Sort</label>
+          <select id="sortBy" class="border rounded px-3 py-2">
+            <option value="relevance">Relevance</option>
+            <option value="priceAsc">Price: Low → High</option>
+            <option value="priceDesc">Price: High → Low</option>
+            <option value="newest">Newest</option>
+          </select>
+
+          <div class="flex items-center gap-1 ml-2">
+            <button id="viewGrid" title="Grid view" class="px-3 py-1 border rounded bg-blue-50">Grid</button>
+            <button id="viewList" title="List view" class="px-3 py-1 border rounded">List</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Cards container -->
+      <div id="resultsContainer" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+
+      <!-- Pagination -->
+      <div class="mt-6 flex justify-center items-center gap-3">
+        <button id="prevPage" class="px-3 py-1 border rounded">Prev</button>
+        <span>Page <span id="currentPage">1</span> of <span id="totalPages">1</span></span>
+        <button id="nextPage" class="px-3 py-1 border rounded">Next</button>
+      </div>
+
+    </section>
+  </main>
+
+  <footer class="mt-12 py-6 bg-white border-t">
+    <div class="max-w-6xl mx-auto px-4 text-sm text-gray-600">
+      © <span id="yr"></span> Fortune Living Victoria
+    </div>
+  </footer>
+
+<script>
+/* ---------- Mock data ---------- */
+const MOCK_LISTINGS = [
+  { id:1, title:"Modern 3-Bed Apartment", price:650000, suburb:"Tarneit", beds:3, baths:2, type:"Apartment", parking:1, amenities:["parking","aircon"], created:"2024-12-01", image:"https://via.placeholder.com/640x420.png?text=Apartment+1" },
+  { id:2, title:"Spacious Family Home", price:820000, suburb:"Werribee", beds:4, baths:2, type:"House", parking:2, amenities:["garden","parking"], created:"2025-01-15", image:"https://via.placeholder.com/640x420.png?text=House+1" },
+  { id:3, title:"Stylish City Unit", price:500000, suburb:"Melbourne CBD", beds:2, baths:1, type:"Unit", parking:0, amenities:["aircon"], created:"2025-02-02", image:"https://via.placeholder.com/640x420.png?text=Unit+1" },
+  { id:4, title:"Cozy 2-Bed Cottage", price:430000, suburb:"Tarneit", beds:2, baths:1, type:"House", parking:1, amenities:["garden"], created:"2024-11-22", image:"https://via.placeholder.com/640x420.png?text=Cottage+1" },
+  { id:5, title:"Luxury 4-bed with Pool", price:1290000, suburb:"Werribee", beds:4, baths:3, type:"House", parking:2, amenities:["pool","parking","aircon"], created:"2025-03-05", image:"https://via.placeholder.com/640x420.png?text=Luxury+1" },
+  { id:6, title:"Compact Studio", price:320000, suburb:"Melbourne CBD", beds:0, baths:1, type:"Apartment", parking:0, amenities:["aircon"], created:"2024-10-05", image:"https://via.placeholder.com/640x420.png?text=Studio+1" },
+  { id:7, title:"Family Home near Park", price:710000, suburb:"Tarneit", beds:3, baths:2, type:"House", parking:2, amenities:["garden","parking"], created:"2025-02-20", image:"https://via.placeholder.com/640x420.png?text=Family+Park" },
+  { id:8, title:"Modern 2-bed Unit", price:560000, suburb:"Werribee", beds:2, baths:1, type:"Unit", parking:1, amenities:["aircon"], created:"2024-09-30", image:"https://via.placeholder.com/640x420.png?text=Unit+2" },
+  { id:9, title:"Suburban 3-bed", price:595000, suburb:"Melton", beds:3, baths:2, type:"House", parking:2, amenities:["parking"], created:"2025-01-01", image:"https://via.placeholder.com/640x420.png?text=Suburban+1" },
+  { id:10, title:"Renovated Townhouse", price:480000, suburb:"Tarneit", beds:2, baths:2, type:"Townhouse", parking:1, amenities:["aircon","parking"], created:"2024-08-18", image:"https://via.placeholder.com/640x420.png?text=Townhouse+1" }
+];
+
+/* ---------- State ---------- */
+let state = {
+  listings: MOCK_LISTINGS.slice(),
+  filters: { suburb:"", minPrice:"", maxPrice:"", beds:"", baths:"", type:"", parking:"", amenities:[] },
+  sortBy: "relevance",
+  view: "grid",
+  page: 1,
+  pageSize: 6,
+  signedIn: false,
+  saved: JSON.parse(localStorage.getItem('savedListings')||"[]")
+};
+
+/* ---------- Helpers ---------- */
+const qs = sel => document.querySelector(sel);
+const qsa = sel => Array.from(document.querySelectorAll(sel));
+const formatPrice = n => n.toLocaleString();
+
+/* ---------- Render ---------- */
+function render() {
+  // Apply filters
+  let filtered = state.listings.filter(p => {
+    const f = state.filters;
+    if (f.suburb && !p.suburb.toLowerCase().includes(f.suburb.toLowerCase())) return false;
+    if (f.minPrice && p.price < Number(f.minPrice)) return false;
+    if (f.maxPrice && p.price > Number(f.maxPrice)) return false;
+    if (f.beds && (p.beds < Number(f.beds))) return false;
+    if (f.baths && (p.baths < Number(f.baths))) return false;
+    if (f.type && p.type.toLowerCase() !== f.type.toLowerCase()) return false;
+    if (f.parking !== "" && f.parking !== null && f.parking !== undefined) {
+      if (f.parking === "0" && p.parking !== 0) return false;
+      if (f.parking !== "0" && p.parking < Number(f.parking)) return false;
+    }
+    // amenities: must include all selected
+    if (f.amenities && f.amenities.length) {
+      for (let a of f.amenities) if (!p.amenities.includes(a)) return false;
+    }
+    return true;
+  });
+
+  // Sorting
+  if (state.sortBy === "priceAsc") filtered.sort((a,b)=>a.price-b.price);
+  else if (state.sortBy === "priceDesc") filtered.sort((a,b)=>b.price-a.price);
+  else if (state.sortBy === "newest") filtered.sort((a,b)=> new Date(b.created) - new Date(a.created));
+  // relevance leaves original order for mock data
+
+  // Pagination
+  const total = filtered.length;
+  const totalPages = Math.max(1, Math.ceil(total / state.pageSize));
+  if (state.page > totalPages) state.page = totalPages;
+  const start = (state.page-1) * state.pageSize;
+  const paged = filtered.slice(start, start + state.pageSize);
+
+  // Update counts / pagination UI
+  qs("#resultCount").textContent = total;
+  qs("#currentPage").textContent = state.page;
+  qs("#totalPages").textContent = totalPages;
+
+  // Render cards
+  const container = qs("#resultsContainer");
+  container.innerHTML = "";
+  if (!paged.length) {
+    container.innerHTML = '<div class="col-span-full bg-white p-6 rounded shadow text-center text-gray-500">No matching properties found.</div>';
+  } else {
+    for (let p of paged) {
+      const isSaved = state.saved.includes(p.id);
+      const card = document.createElement('article');
+      card.className = state.view === "grid" 
+        ? "bg-white rounded-2xl shadow overflow-hidden flex flex-col"
+        : "bg-white rounded-lg shadow overflow-hidden flex gap-4 p-4 items-center";
+      card.innerHTML = `
+        <img src="${p.image}" alt="${escapeHtml(p.title)}" class="${state.view==='grid' ? 'w-full h-44 object-cover' : 'w-40 h-28 object-cover rounded'}" />
+        <div class="${state.view==='grid' ? 'p-4' : 'flex-1'}">
+          <h3 class="font-semibold text-lg">${escapeHtml(p.title)}</h3>
+          <p class="text-blue-600 font-medium mt-1">$${formatPrice(p.price)}</p>
+          <p class="text-sm text-gray-500">${p.beds} bed • ${p.baths} bath • ${escapeHtml(p.type)}</p>
+          <p class="text-xs text-gray-400 mt-1">${escapeHtml(p.suburb)}</p>
+          <div class="mt-3 flex items-center gap-3">
+            <a href="/property/${p.id}" class="text-sm bg-blue-600 text-white px-3 py-1 rounded">View Details</a>
+            <button data-id="${p.id}" class="saveBtn text-sm px-2 py-1 rounded border ${isSaved ? 'bg-red-50 text-red-600 border-red-200' : 'bg-gray-100'}">
+              ${isSaved ? 'Saved ♥' : 'Save'}
+            </button>
+          </div>
+        </div>
+      `;
+      container.appendChild(card);
+    }
+  }
+}
+
+/* ---------- UI wiring ---------- */
+function applyUIValuesToState() {
+  state.filters.suburb = qs("#fSuburb").value.trim();
+  state.filters.minPrice = qs("#fMinPrice").value.trim();
+  state.filters.maxPrice = qs("#fMaxPrice").value.trim();
+  state.filters.beds = qs("#fBeds").value;
+  state.filters.baths = qs("#fBaths").value;
+  state.filters.type = qs("#fType").value;
+  state.filters.parking = qs("#fParking").value;
+  state.filters.amenities = qsa(".amenity:checked").map(n => n.value);
+  state.sortBy = qs("#sortBy").value;
+  state.page = 1;
+}
+
+qs("#applyFilters").addEventListener("click", ()=> {
+  applyUIValuesToState();
+  render();
+});
+
+qs("#resetFilters").addEventListener("click", ()=> {
+  qs("#fSuburb").value = ""; qs("#fMinPrice").value = ""; qs("#fMaxPrice").value = "";
+  qs("#fBeds").value = ""; qs("#fBaths").value = ""; qs("#fType").value = ""; qs("#fParking").value = "";
+  qsa(".amenity").forEach(ch => ch.checked = false);
+  state.filters = { suburb:"", minPrice:"", maxPrice:"", beds:"", baths:"", type:"", parking:"", amenities:[] };
+  state.sortBy = "relevance";
+  qs("#sortBy").value = "relevance";
+  state.page = 1;
+  render();
+});
+
+// Sort change
+qs("#sortBy").addEventListener("change", (e)=> { state.sortBy = e.target.value; state.page = 1; render(); });
+
+// View toggle
+qs("#viewGrid").addEventListener("click", ()=> { state.view = "grid"; qs("#viewGrid").classList.add('bg-blue-50'); qs("#viewList").classList.remove('bg-blue-50'); render(); });
+qs("#viewList").addEventListener("click", ()=> { state.view = "list"; qs("#viewList").classList.add('bg-blue-50'); qs("#viewGrid").classList.remove('bg-blue-50'); render(); });
+
+// Pagination
+qs("#prevPage").addEventListener("click", ()=> { if (state.page>1) { state.page--; render(); }});
+qs("#nextPage").addEventListener("click", ()=> { state.page++; render(); });
+
+// Delegate save/unsave clicks (re-render after clicking)
+document.addEventListener('click', (e) => {
+  const btn = e.target.closest('.saveBtn');
+  if (btn) {
+    const id = Number(btn.dataset.id);
+    if (state.saved.includes(id)) state.saved = state.saved.filter(x=>x!==id);
+    else state.saved.push(id);
+    localStorage.setItem('savedListings', JSON.stringify(state.saved));
+    render();
+  }
+});
+
+// Simulate sign in toggle (visual only)
+qs("#toggleSignin").addEventListener("click", () => {
+  state.signedIn = !state.signedIn;
+  qs("#toggleSignin").textContent = state.signedIn ? "Signed in (sim)" : "Sign in (simulate)";
+  // Note: Save functionality is always available but could be gated based on state.signedIn
+});
+
+// NLP search parsing (very small heuristic-based parser)
+qs("#nlpSearchForm").addEventListener("submit", (ev) => {
+  ev.preventDefault();
+  const text = qs("#nlpSearchInput").value.trim();
+  if (!text) return;
+  // reset filters first
+  qs("#fSuburb").value = ""; qs("#fMinPrice").value = ""; qs("#fMaxPrice").value = "";
+  qs("#fBeds").value = ""; qs("#fBaths").value = ""; qs("#fType").value = ""; qs("#fParking").value = "";
+  qsa(".amenity").forEach(ch => ch.checked = false);
+  // parse beds (e.g., "3-bed" or "3 bed")
+  const bedMatch = text.match(/(\d+)\s*-\s*bed|(\d+)\s+bed/);
+  if (bedMatch) {
+    const n = bedMatch[1] || bedMatch[2];
+    qs("#fBeds").value = n;
+  }
+  // parse price under/over e.g., "under $700k" or "$700k"
+  const underMatch = text.match(/under\s*\$?([\d,.]+k?)/i);
+  const overMatch = text.match(/over\s*\$?([\d,.]+k?)/i);
+  const anyPrice = text.match(/\$?([\d,]+)\s*(k)?/i);
+  if (underMatch) {
+    let val = toNumber(underMatch[1]);
+    qs("#fMaxPrice").value = val;
+  } else if (overMatch) {
+    let val = toNumber(overMatch[1]);
+    qs("#fMinPrice").value = val;
+  } else if (anyPrice) {
+    // if single numeric, treat as max price
+    let val = toNumber(anyPrice[1]);
+    qs("#fMaxPrice").value = val;
+  }
+  // parse suburb (look for capitalized word sequences that match known suburbs)
+  const suburbs = ["Tarneit","Werribee","Melbourne CBD","Melton"];
+  for (let s of suburbs) if (text.toLowerCase().includes(s.toLowerCase())) qs("#fSuburb").value = s;
+  // parse amenity keywords
+  if (/parking/i.test(text)) qs("input.amenity[value='parking']").checked = true;
+  if (/pool/i.test(text)) qs("input.amenity[value='pool']").checked = true;
+  if (/aircon|air[-\s]?con/i.test(text)) qs("input.amenity[value='aircon']").checked = true;
+  if (/garden/i.test(text)) qs("input.amenity[value='garden']").checked = true;
+
+  // Update state
+  applyUIValuesToState();
+  render();
+});
+
+/* ---------- Utility helpers ---------- */
+function toNumber(token) {
+  if (!token) return 0;
+  let s = String(token).toLowerCase().replace(/\$/g,'').replace(/,/g,'').trim();
+  if (s.endsWith('k')) return Math.round(parseFloat(s.slice(0,-1))*1000);
+  return Math.round(parseFloat(s));
+}
+function escapeHtml(str){ return String(str).replace(/[&<>"']/g, (m)=>({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m])); }
+
+/* ---------- Initial render ---------- */
+qs("#yr").textContent = new Date().getFullYear();
+render();
+</script>
+
+</body>
+</html>
 
